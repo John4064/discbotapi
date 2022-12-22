@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 
 const { notFound, errorHandler } = require('./middlewares');
 
-require('dotenv').config();
+require('dotenv').config({ path: '../.env' });
 
 const schema = require('./db/schema');
 console.log("WORKS")
