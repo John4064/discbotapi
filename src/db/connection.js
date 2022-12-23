@@ -8,19 +8,18 @@ if (process.env.NODE_ENV === 'test') {
 
 //dburl & port is undefined for some reason
 
-
+console.log(process.env.DBPORT);
 const connection = mysql.createConnection({
-    host: dbUrl,
-    user: process.env.USER,
-    password: process.env.PASSWORD,
-    database: process.env.DB
+    host: "10.0.1.27",
+    user: "root",
+    password: "Panda1234",
+    database: "safapi"
 });
-console.log("test1")
 
 // open the MySQL connection
 connection.connect(error => {
     if (error) throw error;
     console.log("Successfully connected to the database.");
 });
-console.log("test2")
+
 module.exports = connection;
