@@ -65,9 +65,9 @@ Whitelist.findBySteam= (identifier, res)=>{
 
 Whitelist.updateById= (req, res)=>{
     //db query here
-    sql.query(
-        "UPDATE tutorials SET title = ?, description = ?, published = ? WHERE id = ?",
-        [tutorial.title, tutorial.description, tutorial.published, id],
+    db.query(
+        "UPDATE Whitelist SET user = ?, serverName = ?, identifier = ? WHERE id = ?",
+        [Whitelist.user, Whitelist.serverName, Whitelist.identifier, id],
         (err, res) => {
             if (err) {
                 console.log("error: ", err);
