@@ -55,17 +55,11 @@ exports.updateById = (req, res) => {
             message: "Content can not be empty!"
         });
     }
-    // console.log(req.body);
-    // let test = new Whitelist(req.body);
-    // test.id=req.params.id;
-    // console.log(test);
     Whitelist.updateById(
         req.params.id,
         new Whitelist(req.body),
         (err, data) => {
-            let t = new Whitelist(req.body);
-            console.log(data);
-
+            //console.log(data);
             if (err) {
                 if (err.kind === "not_found") {
                     res.status(404).send({
@@ -79,4 +73,43 @@ exports.updateById = (req, res) => {
             } else res.send(data);
         }
     );
+};
+
+exports.create = (req,res) => {
+    if (!req.body) {
+        res.status(400).send({
+            message: "Content can not be empty!"
+        });
+    }
+
+    // Create a Tutorial
+    const whitelist = new Whitelist({
+        identifier: req.body.identifier,
+        user: req.body.user || "UNK",
+        serverName: req.body.serverName
+    });
+// Save Tutorial in the database
+    Whitelist.create(whitelist, (err, data) => {
+        if (err)
+            res.status(500).send({
+                message: err.message || "Some error occurred while creating the Tutorial."});
+        else res.send(data);
+    });
+
+};
+
+exports.delete = (req, res) => {
+    Whitelist.remove(req.params.id, (err, data) => {
+        if (err) {
+            if (err.kind === "not_found") {
+                res.status(404).send({
+                    message: `Not found Whitelist with id ${req.params.id}.`
+                });
+            } else {
+                res.status(500).send({
+                    message: "Could not delete Whitelist with id " + req.params.id
+                });
+            }
+        } else res.send({ message: `Whitelist was deleted successfully!` });
+    });
 };

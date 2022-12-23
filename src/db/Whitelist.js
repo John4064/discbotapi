@@ -85,8 +85,40 @@ Whitelist.updateById= (id,newWhitelist, res)=>{
 
             console.log("updated whitelist: ", { id: id, ...newWhitelist });
             res(null, { id: id, ...newWhitelist });
-            //res(null,null);
         }
     );
+};
+
+Whitelist.create= (newWhitelist, res)=>{
+    db.query("INSERT INTO Whitelist SET ?", newWhitelist, (err, sqlResult) => {
+        if (err) {
+            console.log("error: ", err);
+            res(err, null);
+            return;
+        }
+
+        console.log("created Whitelist: ", { id: sqlResult.insertId, ...newWhitelist });
+        res(null, { id: sqlResult.insertId, ...newWhitelist });
+    });
+
+};
+
+Whitelist.remove=(id,res)=>{
+    db.query("DELETE FROM Whitelist WHERE id = ?", id, (err, sqlResult) => {
+        if (err) {
+            console.log("error: ", err);
+            res(null, err);
+            return;
+        }
+
+        if (sqlResult.affectedRows == 0) {
+            // not found Tutorial with the id
+            res({ kind: "not_found" }, null);
+            return;
+        }
+
+        console.log("deleted Whitelist with id: ", id);
+        res(null, sqlResult);
+    });
 };
 module.exports = Whitelist;
