@@ -48,20 +48,24 @@ exports.findBySteam = (req, res) =>{
 };
 
 //UPDATE
-exports.update = (req, res) => {
+exports.updateById = (req, res) => {
     // Validate Request
     if (!req.body) {
         res.status(400).send({
             message: "Content can not be empty!"
         });
     }
-
-    console.log(req.body);
-
+    // console.log(req.body);
+    // let test = new Whitelist(req.body);
+    // test.id=req.params.id;
+    // console.log(test);
     Whitelist.updateById(
         req.params.id,
         new Whitelist(req.body),
         (err, data) => {
+            let t = new Whitelist(req.body);
+            console.log(data);
+
             if (err) {
                 if (err.kind === "not_found") {
                     res.status(404).send({

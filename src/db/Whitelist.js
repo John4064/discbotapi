@@ -63,26 +63,29 @@ Whitelist.findBySteam= (identifier, res)=>{
 
 };
 
-Whitelist.updateById= (req, res)=>{
-    //db query here
+Whitelist.updateById= (id,newWhitelist, res)=>{
+    // db query here
+    //
+    // console.log("THE REQ IS: "+req.params);
     db.query(
         "UPDATE Whitelist SET user = ?, serverName = ?, identifier = ? WHERE id = ?",
-        [Whitelist.user, Whitelist.serverName, Whitelist.identifier, id],
-        (err, res) => {
+        [newWhitelist.user, newWhitelist.serverName, newWhitelist.identifier, id],
+        (err, sqlResult) => {
             if (err) {
                 console.log("error: ", err);
-                result(null, err);
+                res(null, err);
                 return;
             }
 
-            if (res.affectedRows == 0) {
+            if (sqlResult.affectedRows == 0) {
                 // not found Tutorial with the id
-                result({ kind: "not_found" }, null);
+                res({ kind: "not_found" }, null);
                 return;
             }
 
-            console.log("updated whitelist: ", { id: id, ...Whitelist });
-            result(null, { id: id, ...Whitelist });
+            console.log("updated whitelist: ", { id: id, ...newWhitelist });
+            res(null, { id: id, ...newWhitelist });
+            //res(null,null);
         }
     );
 };

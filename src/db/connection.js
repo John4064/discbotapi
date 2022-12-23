@@ -8,7 +8,6 @@ if (process.env.NODE_ENV === 'test') {
 
 //dburl & port is undefined for some reason
 
-console.log(process.env.DBPORT);
 const connection = mysql.createConnection({
     host: "10.0.1.27",
     user: "root",

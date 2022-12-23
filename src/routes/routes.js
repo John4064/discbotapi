@@ -10,6 +10,8 @@ module.exports = (app) =>{
 
     router.get("/findbysteam/:identifier", controller.findBySteam);
     // Update a Tutorial with id
-    router.put("/:id", controller.update);
+    router.put("/:id", controller.updateById);
+
+
     app.use('/api', router);
 }
