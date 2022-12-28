@@ -120,21 +120,21 @@ Whitelist.updateBySteamId=(steamId,serverName,res)=>{
     });
 }
 
-Whitelist.remove=(id,res)=>{
-    db.query("DELETE FROM Whitelist WHERE id = ?", id, (err, sqlResult) => {
+Whitelist.remove=(steamid,res)=>{
+    db.query("DELETE FROM Whitelist WHERE identifier = ?", steamid, (err, sqlResult) => {
         if (err) {
             console.log("error: ", err);
             res(null, err);
             return;
         }
 
-        if (sqlResult.affectedRows == 0) {
+        if (sqlResult.affectedRows === 0) {
             // not found Tutorial with the id
             res({ kind: "not_found" }, null);
             return;
         }
 
-        console.log("deleted Whitelist with id: ", id);
+        console.log("deleted Whitelist with id: ", steamid);
         res(null, sqlResult);
     });
 };

@@ -17,8 +17,7 @@ module.exports = (app) =>{
     // Create a new Tutorial
     router.post("/create", controller.create);
 
-    //Todo: Swap to steamID
-    router.delete("/kill/:id", controller.delete);
+    router.delete("/kill/:steamid", controller.delete);
 
     app.use('/api', router);
 }

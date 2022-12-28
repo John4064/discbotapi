@@ -115,15 +115,15 @@ exports.create = (req,res) => {
 };
 
 exports.delete = (req, res) => {
-    Whitelist.remove(req.params.id, (err, data) => {
+    Whitelist.remove(req.params.steamid, (err, data) => {
         if (err) {
             if (err.kind === "not_found") {
                 res.status(404).send({
-                    message: `Not found Whitelist with id ${req.params.id}.`
+                    message: `Not found Whitelist with id ${req.params.steamid}.`
                 });
             } else {
                 res.status(500).send({
-                    message: "Could not delete Whitelist with id " + req.params.id
+                    message: "Could not delete Whitelist with id " + req.params.steamid
                 });
             }
         } else res.send({ message: `Whitelist was deleted successfully!` });
