@@ -103,6 +103,23 @@ Whitelist.create= (newWhitelist, res)=>{
 
 };
 
+Whitelist.updateBySteamId=(steamId,serverName,res)=>{
+    db.query("UPDATE Whitelist SET serverName = ? WHERE identifier = ?",[serverName,steamId],(err,sqlResult)=>{
+        if(err){
+            console.log("Error: ",err);
+            res(err,null);
+            return;
+        }
+        if (sqlResult.affectedRows === 0) {
+            // not found Tutorial with the id
+            res({ kind: "not_found" }, null);
+            return;
+        }
+        console.log("Updated Whitelist: ", { id: sqlResult.insertId});
+        res(null,sqlResult.insertId)
+    });
+}
+
 Whitelist.remove=(id,res)=>{
     db.query("DELETE FROM Whitelist WHERE id = ?", id, (err, sqlResult) => {
         if (err) {

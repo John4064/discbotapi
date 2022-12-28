@@ -9,11 +9,15 @@ module.exports = (app) =>{
     router.get("/findbyid/:id", controller.findById);
 
     router.get("/findbysteam/:identifier", controller.findBySteam);
-    // Update a Tutorial with id
-    router.put("/update/:id", controller.updateById);
+    // Update a Tutorial with id (Disabled RN)
+    //router.put("/update/:id", controller.updateById);
+
+    router.put("/update/:steamid",controller.updateBySteamId)
+
     // Create a new Tutorial
     router.post("/create", controller.create);
 
+    //Todo: Swap to steamID
     router.delete("/kill/:id", controller.delete);
 
     app.use('/api', router);
