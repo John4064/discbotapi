@@ -92,7 +92,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"user\" : \"Greg\",\n    \"serverName\": 4,\n    \"identifier\": \"Wow\"\n}",
+					"raw": "{\n    \"serverName\": 21\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -100,7 +100,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/api/update/275",
+					"raw": "http://localhost:8080/api/update/steam:69",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -109,7 +109,7 @@
 					"path": [
 						"api",
 						"update",
-						"275"
+						"steam:69"
 					]
 				}
 			},
@@ -150,7 +150,7 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/kill/277",
+					"raw": "http://localhost:8080/api/kill/Steam:69",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -159,7 +159,7 @@
 					"path": [
 						"api",
 						"kill",
-						"277"
+						"Steam:69"
 					]
 				}
 			},
