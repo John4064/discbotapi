@@ -8,37 +8,46 @@ if (process.env.NODE_ENV === 'test') {
 
 //dburl & port is undefined for some reason
 
-var db_config = {
+const db_config = {
     host: "10.0.1.27",
-        user: "root",
-        password: "Panda1234",
-        database: "safapi"
+    user: "root",
+    password: "Panda1234",
+    database: "safapi",
+    connectionLimit: 100, //important idk why
+    debug: false
 };
-var connection;
+
+
+let pool;//Changed this from a connection to a pool to account for outages in the api
+
 
 function handleDisconnect(){
-    connection = mysql.createConnection(db_config);
-
+    //connection = mysql.createConnection(db_config);
+    pool = mysql.createPool(db_config);
     // open the MySQL connection
-    connection.connect(err => {
-        if (err){
-            console.log("Error when connecting to the db:",err);
-            setTimeout(handleDisconnect,60000);
-        }else{
-            console.log("Successfully connected to the database.");
-        }
-        connection.on('error', function(err) {
-            console.log('db error', err);
-            if(err.code === 'PROTOCOL_CONNECTION_LOST') { // Connection to the MySQL server is usually
-                handleDisconnect();                         // lost due to either server restart, or a
-            } else {                                      // connnection idle timeout (the wait_timeout
-                throw err;                                  // server variable configures this)
-            }
-        })
-
-    });
+    // connection.connect(err => {
+    //     if (err){
+    //         console.log("Error when connecting to the db:",err);
+    //         console.log("Reconnecting in one minute...");
+    //         setTimeout(handleDisconnect,60000);
+    //     }else{
+    //         console.log("Successfully connected to the database.");
+    //     }
+    //     connection.on('error', function(err) {
+    //         console.log('db error', err);
+    //         if(err.code === 'PROTOCOL_CONNECTION_LOST') { // Connection to the MySQL server is usually
+    //             handleDisconnect();                         // lost due to either server restart, or a
+    //         } if(err.code === 'PROTOCOL_PACKETS_OUT_OF_ORDER'){
+    //             handleDisconnect();
+    //             //SQL server was turned off after connection
+    //         }else { // connnection idle timeout (the wait_timeout
+    //             throw err;
+    //         }
+    //     })
+    //
+    // });
 }
 handleDisconnect();
 
 
-module.exports = connection;
+module.exports = pool;
